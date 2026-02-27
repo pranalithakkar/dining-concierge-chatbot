@@ -5,6 +5,9 @@ A serverless dining concierge chatbot built on AWS for the Cloud Computing cours
 ## Live Demo
 **Website URL:** http://dining-concierge-bot-pt2611-ym3470.s3-website-us-east-1.amazonaws.com/chat.html
 
+## Demo Video
+[![Watch Demo](https://img.youtube.com/vi/tomOmhIH_TQ/0.jpg)](https://www.youtube.com/watch?v=tomOmhIH_TQ)
+
 ## Architecture
 - **Frontend:** S3 Static Website
 - **API:** API Gateway + Lambda (LF0)
