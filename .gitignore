@@ -1,7 +1,20 @@
-.os_credentials
-.env
+# Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+
+# Environment
+.env
+.os_credentials
+
+# Mac
 .DS_Store
-node_modules/
+
+# ZIP files
 *.zip
+
+# Node
+node_modules/
