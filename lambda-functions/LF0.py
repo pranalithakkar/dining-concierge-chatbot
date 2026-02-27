@@ -20,7 +20,7 @@ def lambda_handler(event, context):
         msg = messages[0]
         user_text = msg.get('unstructured', {}).get('text', 'Hello')
 
-    # Use IP address as session ID
+    
     ip = event.get('requestContext', {}).get('identity', {}).get('sourceIp', 'default')
     session_id = f'session-{ip}'.replace('.', '-')
 
@@ -34,7 +34,7 @@ def lambda_handler(event, context):
     if bot_messages:
         bot_text = bot_messages[0].get('content', bot_text)
 
-    # Check if conversation is done — delete session so next conversation starts fresh
+    
     session_state = lex_resp.get('sessionState', {})
     dialog_action = session_state.get('dialogAction', {})
     intent_state = session_state.get('intent', {}).get('state', '')

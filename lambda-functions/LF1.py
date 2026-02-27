@@ -75,7 +75,7 @@ def validate_date(value):
     elif value_lower in ['yesterday', 'last week', 'last month']:
         return False, "Sorry, I can't make reservations for past dates.", None
 
-    # Try YYYY-MM-DD (what Lex returns)
+    
     try:
         parsed = datetime.strptime(value, '%Y-%m-%d').date()
         if parsed < today:
@@ -84,7 +84,7 @@ def validate_date(value):
     except ValueError:
         pass
 
-    # Try other common formats
+    
     for fmt in ['%B %d', '%b %d', '%d %B', '%d %b', '%m/%d/%Y', '%m/%d/%y', '%B %d %Y', '%b %d %Y', '%d %B %Y', '%d %b %Y']:
         try:
             parsed = datetime.strptime(value, fmt).date()
@@ -104,11 +104,11 @@ def parse_time_input(value):
     """Convert natural language time to HH:MM format"""
     value = value.lower().strip()
 
-    # Already in HH:MM format
+    
     if re.match(r'^\d{1,2}:\d{2}$', value):
         return value
 
-    # Handle "2 pm", "7 pm", "11 am", "2pm", "7pm", "7:30 pm"
+    
     match = re.match(r'^(\d{1,2})(?::(\d{2}))?\s*(am|pm)$', value)
     if match:
         hour = int(match.group(1))
@@ -120,7 +120,7 @@ def parse_time_input(value):
             hour = 0
         return f"{hour:02d}:{minute:02d}"
 
-    # Handle just a number like "7" or "11"
+    
     match = re.match(r'^(\d{1,2})$', value)
     if match:
         hour = int(match.group(1))
@@ -185,7 +185,7 @@ def handle_dining(event):
     source = event.get('invocationSource', '')
     user_input = event.get('inputTranscript', '').strip()
 
-    # Read confirmed values from session attributes
+    
     confirmed_location = session_attrs.get('confirmedLocation')
     confirmed_cuisine  = session_attrs.get('confirmedCuisine')
     confirmed_date     = session_attrs.get('confirmedDate')
@@ -193,7 +193,7 @@ def handle_dining(event):
     confirmed_people   = session_attrs.get('confirmedPeople')
     confirmed_email    = session_attrs.get('confirmedEmail')
 
-    # Determine which slot we are currently collecting
+    
     if not confirmed_location:
         collecting = 'Location'
     elif not confirmed_cuisine:
@@ -284,7 +284,7 @@ def handle_dining(event):
             else:
                 return elicit_slot(session_attrs, intent_name, slots, 'Email', error_msg)
 
-    # Check if all slots are confirmed
+    
     all_confirmed = all([
         session_attrs.get('confirmedLocation'),
         session_attrs.get('confirmedCuisine'),
@@ -313,7 +313,7 @@ def handle_dining(event):
                 return close(session_attrs, intent_name, 'Failed',
                     "I'm sorry, something went wrong. Please try again in a moment.")
 
-        # Format time nicely e.g. "7:00 PM"
+        
         try:
             pretty_time = datetime.strptime(
                 session_attrs['confirmedTime'], '%H:%M').strftime('%I:%M %p')
@@ -328,7 +328,7 @@ def handle_dining(event):
             f"{display_date} at {pretty_time} "
             f"to {session_attrs['confirmedEmail']}. Enjoy your meal!")
 
-    # Ask for next uncollected slot
+    
     if not session_attrs.get('confirmedLocation'):
         return elicit_slot(session_attrs, intent_name, slots, 'Location',
             "Where would you like to dine?")
