@@ -28,3 +28,7 @@ Manhattan, NYC
 - `frontend/` - S3 static website files
 - `lambda-functions/` - LF0, LF1, LF2 Lambda function code
 - `other-scripts/` - OpenSearch data loading script
+
+## Data Source
+The restaurant dataset is reused from:
+- [Yelp NYC Data Extraction](https://github.com/yatharthMogra/Yelp-NYC-DataExtraction)
